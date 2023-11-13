@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+    }
+
+    .block {
+      width: 60px;
+      height: 60px;
+      margin: 5px;
+      display: inline-block;
+      cursor: pointer;
+      background-color: #3498db;
+      color: #fff;
+      font-size: 24px;
+      line-height: 60px;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .block:hover {
+      background-color: #2980b9;
+    }
+
+    #game-container, #answer-container {
+      margin-top: 20px;
+    }
+
+    #answer-container {
+      margin-bottom: 20px;
+    }
+
+    #picture-container {
+      margin-bottom: 10px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      background-color: #2ecc71;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    #message {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #e74c3c;
+    }
+  </style>
+</head>
+<body>
+<div id="q-container">
+    <!-- Insert your picture here -->
+    <p>QUESTION :</p>
+    <p>For the Below AUTOMATA DIAGRAM what will be the correct order of traversal of states for the pointer for the input string = "bbbabb"</p>
+    </div>
+<div id="picture-container">
+  <!-- Insert your picture here -->
+  <img src="q1.png" alt="Game Image" style="width: 400px; height: 300px;">
+</div>
+
+<div id="game-container">
+  <div class="block" onclick="handleClick(0)">q0</div>
+  <div class="block" onclick="handleClick(1)">q1</div>
+  <div class="block" onclick="handleClick(2)">q2</div>
+  <div class="block" onclick="handleClick(3)">q3</div>
+</div>
+
+<div id="answer-container"></div>
+<button onclick="checkAnswer()">Check Answer</button>
+<div id="message"></div>
+
+<script>
+  // Define the correct sequence of clicks
+  const correctSequence = ["q0", "q0", "q0", "q1", "q2", "q3"]; // Update with your desired sequence
+
+  // Function to handle block clicks
+  function handleClick(index) {
+    // Create a new set of question and answer boxes
+    const gameContainer = document.getElementById('game-container');
+    const answerContainer = document.getElementById('answer-container');
+    
+    // const questionBox = document.createElement('div');
+    // questionBox.classList.add('block');
+    // questionBox.innerText = index + 1;
+    // gameContainer.appendChild(questionBox);
+
+    const answerBox = document.createElement('div');
+    answerBox.classList.add('block');
+    answerBox.innerText ="q"+ index ;
+    answerContainer.appendChild(answerBox);
+  }
+
+  // Function to check the answer
+  function checkAnswer() {
+    // Check if the user's sequence matches the correct sequence
+    if (arraysEqual(getUserSequence(), correctSequence)) {
+      displayMessage("Right Answer!");
+    } else {
+      displayMessage("Wrong Answer!");
+    }
+  }
+
+  // Function to get the user's sequence
+  function getUserSequence() {
+    const answerBoxes = document.getElementById('answer-container').children;
+    const userSequence = [];
+    for (const box of answerBoxes) {
+      userSequence.push(box.innerText);
+    }
+    return userSequence;
+  }
+
+  // Function to compare two arrays
+  function arraysEqual(arr1, arr2) {
+    return arr1.length === arr2.length && arr1.every((value, index) => value === arr2[index]);
+  }
+
+  // Function to display messages on the screen
+  function displayMessage(message) {
+    document.getElementById('message').innerText = message;
+  }
+</script>
+
+</body>
+</html>
